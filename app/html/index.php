@@ -1,3 +1,3 @@
 <?php
-$html = require("html/index.html");
+$html = file_get_contents("html/index.html");
 echo $html;
