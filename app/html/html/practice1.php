@@ -22,35 +22,39 @@
 	// 文字列内に変数展開する形で$valueを生成
 	// ------------------------------------------
 	function practice1($value1, $value2) {
-		//$value = ...
+		$value = "{$value1}m{$value2}";
+		echo $value;
+		return $value;
 	}
 
-	$value1 = "abc";
-	$value2 = "xyz";
+	$value1 = abc;
+	$value2 = xyz;
 
 	$value = practice1($value1,$value2);
-	$answer = "abcxyz";
+	$answer = "abcmxyz";
 	echo_string($value, $answer);
 
 
 	// 文字列を結合して$valueを生成
 	// ------------------------------------------
 	function practice2($value1, $value2) {
-		//$value = ...
+		$value = $value1."m".$value2; 
+		return $value;
 	}
 
 	$value1 = "abc";
 	$value2 = "xyz";
 
 	$value = practice2($value1, $value2);
-	$answer = "abcxyz";
+	$answer = "abcmxyz";
 	echo_string($value, $answer);
 
 
 	// 文字列の結合
 	// ------------------------------------------
 	function practice3($value1, $value2, $value3) {
-		//$value = ...
+		$value = $value1 .$value2 .$value3;
+		return $value;
 	}
 
 	$value1 = "abc";
@@ -65,7 +69,8 @@
 	// 数値（int）から文字列への変換
 	// ------------------------------------------
 	function practice4($value1) {
-		//$value = ...
+		$value = (string) $value1;
+		return $value;
 	}
 
 	$value1 = 123;
@@ -78,7 +83,8 @@
 	// 数値（float）から文字列への変換
 	// ------------------------------------------
 	function practice5($value1) {
-		//$value = ...
+		$value = "$value1";
+		return $value;
 	}
 
 	$value1 = 456.789;
@@ -90,8 +96,16 @@
 
 	// 論理値（boolean）を判定する
 	// ------------------------------------------
+	// ◆value1がtrueのときvalueが”TRUE”になる
 	function practice6($value1) {
-		//$value = ...
+		if($value1 === true) {
+			$value = "TRUE";
+		} elseif($value1 === false){
+				$value = "FALSE";
+		} else {
+				$value = "UNEXPECTED";
+		}
+		return $value;
 	}
 
 	// trueの時判定
@@ -115,8 +129,14 @@
 
 	// nullを判定する
 	// ------------------------------------------
+	// ◆nullの判定◆　変数の値がNULLかどうか調べるのは、is_null関数 is_null($変数)
 	function practice7($value1) {
-		//$value = ...
+		if(is_null($value1)){
+			$value = "NULLです";
+		} else {
+			$value = "NULLじゃないです";
+		}
+		return $value;
 	}
 
 	$value1 = null;
@@ -132,8 +152,20 @@
 
 	// 配列を文字列にする
 	// ------------------------------------------
+	//◆value1の配列を、文字列に出力
 	function practice8($value1) {
-		//$value = ...
+		
+		// $array = ["a",2,null];
+		// $value = implode(",", $array);
+		// return $value;
+		// ---------エラー-------nullは値が空っぽ？？だから文字列表記にしたところで表記されない
+		
+		if($value1[2] === null) {
+			$value1[2]="null";
+		}
+		$string = "[".implode(",",$value1)."]";
+		$value = (string)$string;
+		return $value;
 	}
 
 	$value1 = array("a",2,null);
@@ -146,7 +178,11 @@
 	// 連想配列を文字列にする
 	// ------------------------------------------
 	function practice9($value1) {
-		//$value = ...
+		
+
+		$json =  json_encode($value1);// ⇒ {"a":1,"b":"xyz","c":null}
+		$value = str_replace("\"","'", $json);	//str_replaceは検索した文字列に一致した全ての文字列を置換する。バックスラッシュで"を文字として扱う。	
+		return $value; // str_replace( $検索文字列 , $置換後文字列 , $検索対象文字列 [, int &$count ] )
 	}
 
 	$value1 = array("a"=>1,"b"=>"xyz","c"=>null);
