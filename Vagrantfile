@@ -70,10 +70,10 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
 
+  # vagrant plugin install vagrant-proxyconf
   if Vagrant.has_plugin?("vagrant-proxyconf")
-    config.proxy.enabled  = true  # => true; all applications enabled, false; all applications disabled
-    config.proxy.http     = "http://192.168.4.160:9080"
-    config.proxy.https    = "http://192.168.4.160:9080"
-    config.proxy.no_proxy = "localhost,127.0.0.1"
+    config.proxy.http     = ENV["HTTP_PROXY"] || ""
+    config.proxy.https    = ENV["HTTPS_PROXY"] || ""
+    config.proxy.no_proxy = ENV["NO_PROXY"] || "localhost,127.0.0.1"
   end
 end
